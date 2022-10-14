@@ -80,7 +80,7 @@
       <button id="right">右</button>
       <button id="plus">放大+</button>
       <button id="minus">縮小-</button>
-      <!-- <button id="rotate_char">自動畫圓</button> -->
+      <button id="rotate_char">自動畫圓</button>
       <div class="background-control">
         <h2>更換背景</h2>
         <div id="backgroundDrag">拖放背景圖片</div>
@@ -163,35 +163,33 @@
 
       let center_x = 0.45;
       let center_y = 0;
-      let radious = 0.1;
+      let radious = 0.2;
       let angle = 0;
+      let rotate_char = false;
+      var rotating
 
-      setInterval(() => {
+      function toggle_char_rotate(){
+        if(!rotate_char){
+          rotate_char = true;
+          rotating = setInterval(() => {
             if (angle < 20*Math.PI)
               angle += 0.5;
             else
               angle = 0;
             update(center_x + Math.cos(-angle)*radious, center_y + Math.sin(-angle)*radious, 1);
-          }, 400);
-      // let rotate_char = false;
+          }, 100);
+        }
+        else{
+          clearInterval(rotating);
+          update(0.45,0,1);
+          rotate_char = false;
+          angle = 0
+        }
+      }
+      document.querySelector("#rotate_char").addEventListener("click", (e) => {
+        toggle_char_rotate()
 
-      // document.querySelector("#rotate_char").addEventListener("click", (e) => {
-      //   if(!rotate_char){
-      //     rotate_char = true;
-      //     var rotating = setInterval(() => {
-      //       if (angle < 20*Math.PI)
-      //         angle += 0.5;
-      //       else
-      //         angle = 0;
-      //       update(center_x + Math.cos(-angle)*radious, center_y + Math.sin(-angle)*radious, 1);
-      //     }, 400);
-      //   }
-      //   else{
-      //     clearInterval(rotating);
-      //     rotate_char = false;
-        // }
-
-      // });
+      });
 
 
 
