@@ -97408,7 +97408,7 @@ class Camera {
   drawResults(faces, triangulateMesh, boundingBox) {
     (0, _util.drawResults)(this.ctx, faces, triangulateMesh, boundingBox);
     runModel(view => {
-      // console.log(faces)
+      console.log(faces)
       /*眉毛控制*/
       view.browRY = (faces[0].keypoints[27].y - faces[0].keypoints[223].y -7.5)/2;
       view.browLY = (faces[0].keypoints[257].y - faces[0].keypoints[443].y -7.5)/2;
@@ -97428,6 +97428,7 @@ class Camera {
       view.angleY = (faces[0].keypoints[168].y-250)/100*30*(-1);
 
       /*歪頭*/
+      view.angleZ = faces[0].keypoints[152].x - faces[0].keypoints[10].x;
 
 
       /*眼睛控制*/
@@ -97444,9 +97445,14 @@ class Camera {
         view.eyeROpen = 1;
       }
 
-
-
       /*嘴巴控制*/
+      // var mouth_top = faces[0].keypoints[13].y;
+      // var mouth_bottom = faces[0].keypoints[14].y;
+      if(faces[0].keypoints[15].y -  faces[0].keypoints[12].y < 15){
+        view.mouthOpenY = 0;
+      }else{
+        view.mouthOpenY = 10;
+      }
 
     });
   }
